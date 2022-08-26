@@ -181,6 +181,13 @@ app.get("/verifyAccess", auth, (req, res) => {
   res.status(200).json({ success: true, msg: "Success" });
 });
 
-app.listen(process.env.POST || port || 3000, () => {
+app.get("/logout", (req, res) => {
+  console.log('hit')
+  res
+    .clearCookie("accessToken")
+    .send("logout");
+});
+
+app.listen( port || 3000, () => {
   console.log("server is running port " + port || 3000);
 });
