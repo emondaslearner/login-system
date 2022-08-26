@@ -182,11 +182,12 @@ app.get("/verifyAccess", auth, (req, res) => {
 });
 
 app.get("/logout", (req, res) => {
-  console.log('hit')
   res
   .status(200)
   .clearCookie("accessToken")
   .json({success:true})
+
+  res.end()
 });
 
 app.listen( port || 3000, () => {
