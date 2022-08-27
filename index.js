@@ -181,7 +181,7 @@ app.get("/verifyAccess", auth, (req, res) => {
   res.status(200).json({ success: true, msg: "Success" });
 });
 
-app.get("/logout", (req, res) => {
+app.post("/logout", (req, res) => {
   res
   .status(200)
   .clearCookie("accessToken")
