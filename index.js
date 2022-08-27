@@ -181,13 +181,11 @@ app.get("/verifyAccess", auth, (req, res) => {
   res.status(200).json({ success: true, msg: "Success" });
 });
 
-app.post("/logout", (req, res) => {
-  res
-  .status(200)
+app.get("/logout", async (req, res) => {
+  console.log('process')
+  await res
   .clearCookie("accessToken")
   .json({success:true})
-
-  res.end()
 });
 
 app.listen( port || 3000, () => {
