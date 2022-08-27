@@ -13,7 +13,7 @@ const auth = require("./auth");
 
 const app = express();
 
-app.use(cors({ credentials: true }));
+app.use(cors({ origin: "https://curious-fenglisu-99e528.netlify.app", credentials: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
