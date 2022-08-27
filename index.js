@@ -10,25 +10,12 @@ const bcrypt = require("bcrypt");
 const cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
 const auth = require("./auth");
-var session = require("express-session");
 
 const app = express();
 
 app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
-app.use(session({
-  name: "random_session",
-  secret: "yryGGeugidx34otGDuSF5sD9R8g0Gü3r8",
-  resave: false,
-  saveUninitialized: true,
-  cookie: {
-      path: "/",
-      secure: true,
-      //domain: ".herokuapp.com", REMOVE THIS HELPED ME (I dont use a domain anymore)
-      httpOnly: true
-  }
-}));
 
 connect();
 
@@ -169,7 +156,7 @@ app.post("/verifyForgottenOtp", async (req, res) => {
 
   if (verifyOtp) {
     res.status(200).json({ status: verifyOtp });
-  }else{
+  } else {
     res.status(400).json({ status: verifyOtp });
   }
 });
@@ -195,11 +182,19 @@ app.get("/verifyAccess", auth, (req, res) => {
 });
 
 app.get("/logout", async (req, res) => {
-  await res
-  .clearCookie("accessToken")
-  .json({success:true})
+
+  const value = 'thisi'
+  res
+    .status(200)
+    .cookie("accessToken", value , {
+      expires: new Date(new Date().getTime() + 1000),
+      httpOnly: true,
+      sameSite: "none",
+      secure: true,
+    })
+    .json({ success: true});
 });
 
-app.listen( port || 3000, () => {
+app.listen(port || 3000, () => {
   console.log("server is running port " + port || 3000);
 });
